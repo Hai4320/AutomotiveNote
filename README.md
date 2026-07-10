@@ -6,17 +6,20 @@ Ghi chú và lộ trình học **Android Automotive OS (AAOS)** — từ Android
 
 | File | Mô tả |
 |------|-------|
-| [android-automotive-developer-roadmap.md](android-automotive-developer-roadmap.md) | Roadmap 6 phase trở thành Android Automotive Developer, kèm checkbox theo dõi tiến độ và project thực hành mỗi phase |
+| [android-automotive-developer-roadmap.md](android-automotive-developer-roadmap.md) | Roadmap 9 phase cho Android dev chuyển sang Automotive, kèm checkbox theo dõi tiến độ và project thực hành mỗi phase |
 
-## Lộ trình tóm tắt
+## Lộ trình tóm tắt (cho Android dev)
 
 ```
-Phase 1  App Fundamentals        (2–3 tháng)
-Phase 2  Android Internals       (1–2 tháng)
-Phase 3  Kotlin / Java / C++     (1–2 tháng)
-Phase 4  Native & HAL            (2–3 tháng)
-Phase 5  Debugging & Profiling   (1 tháng)
-Phase 6  AAOS Specialization     (2–3 tháng)
+Phase 0  Android App Review          (1–2 tuần — đã có nền)
+Phase 1  Android Internals           (1–2 tháng)
+Phase 2  C/C++ & JNI                 (1–2 tháng)
+Phase 3  Embedded Linux & AOSP Build (1–2 tháng)
+Phase 4  Native & HAL                (2–3 tháng)
+Phase 5  Automotive Domain (CAN/UDS) (1 tháng)
+Phase 6  Debugging & Profiling       (1 tháng)
+Phase 7  AAOS & Cockpit Platform     (2–3 tháng)
+Phase 8  Chuẩn ngành & Workflow      (song song)
 ```
 
 ## Cách dùng
@@ -30,4 +33,3 @@ Phase 6  AAOS Specialization     (2–3 tháng)
 - [Android Automotive OS docs](https://source.android.com/docs/automotive)
 - [Car App Library](https://developer.android.com/training/cars)
 - [Vehicle HAL reference](https://source.android.com/docs/automotive/vhal)
-1
