@@ -1,231 +1,219 @@
 ---
 title: Android Automotive Developer Roadmap
 tags:
-- Automative
-- Android
-- Android Automotive
-- Kotlin
-- Programming
-published: '2025-11-12'
-free: false
-freedium_url: https://freedium-mirror.cfd/https://medium.com/@anandgaur2207/android-automotive-developer-roadmap-f0fcfa0c72d4
-source_url: https://medium.com/@anandgaur2207/android-automotive-developer-roadmap-f0fcfa0c72d4
+  - Android Automotive
+  - AAOS
+  - Kotlin
+  - Roadmap
 ---
 
-# Android Automotive Developer Roadmap
+# 🚗 Android Automotive Developer Roadmap
 
-*Published Nov 12, 2025 · Free: No*
+Lộ trình từng bước từ Android cơ bản đến system-level development (AOSP, HAL, Vehicle HAL) để trở thành Android Automotive Developer.
 
-The automotive industry is evolving faster than ever, and Android is at the heart of this transformation. Android Automotive OS (AAOS) is not just another platform it's a full-fledged operating system running inside modern vehicles. From infotainment systems to navigation and vehicle controls, Android Automotive is redefining how we experience driving.
-This roadmap will guide you step by step — from Android fundamentals to system-level development with AOSP, HAL, and Vehicle HAL — to help you become a skilled Android Automotive Developer ready for real-world projects.
+## Tổng quan lộ trình
 
-### PHASE 1: Android Application Fundamentals
+| Phase | Nội dung | Thời gian gợi ý |
+|-------|----------|-----------------|
+| 1 | Android Application Fundamentals | 2–3 tháng |
+| 2 | Android Internals (System Understanding) | 1–2 tháng |
+| 3 | Programming Languages for Automotive | 1–2 tháng |
+| 4 | Native & HAL Development | 2–3 tháng |
+| 5 | Debugging & Profiling Tools | 1 tháng |
+| 6 | Automotive Specialization (AAOS) | 2–3 tháng |
 
-**Goal:** Build a strong base in Android app development before moving into Automotive.
+```
+App Fundamentals → Android Internals → Languages (Kotlin/Java/C++)
+        → HAL & Native → Debugging Tools → AAOS Specialization
+```
 
-**What to Learn:**
+---
 
-#### Android Basics
+## PHASE 1: Android Application Fundamentals
 
-- Android Application Structure
- (Manifest, Gradle, Resource folders, Build types)
-- Activities, Fragments, and Activity Lifecycle
-- Activity Embedding (multi-window layouts)
-- Intents (explicit & implicit), PendingIntent
-- Services & Binding with services
-- BroadcastReceiver & ContentProvider
-- Permissions, App Manifest setup
+**Mục tiêu:** Nền tảng vững về Android app development trước khi vào Automotive.
 
-#### UI Layer
+### Android Basics
 
-- Jetpack Compose (modern UI toolkit)
-- Composable functions
-- State management
-- Layouts & navigation
-- Material 3 theming
-- Compose + ViewModel + Flow integration
+- [ ] Android Application Structure (Manifest, Gradle, Resource folders, Build types)
+- [ ] Activities, Fragments & Activity Lifecycle
+- [ ] Activity Embedding (multi-window layouts)
+- [ ] Intents (explicit & implicit), PendingIntent
+- [ ] Services & Bound Services
+- [ ] BroadcastReceiver & ContentProvider
+- [ ] Permissions & App Manifest setup
 
-**Outcome:** You can build complete Android apps and understand how each app component interacts with the system.
+### UI Layer
 
-### PHASE 2: Android Internals (System Understanding)
+- [ ] Jetpack Compose (modern UI toolkit)
+- [ ] Composable functions & State management
+- [ ] Layouts & Navigation
+- [ ] Material 3 theming
+- [ ] Compose + ViewModel + Flow integration
 
-**Goal:** Understand how Android works _under the hood_.
- This is the foundation for working on Android Automotive and HAL-level development.
+**🎯 Project thực hành:** Xây 1 app hoàn chỉnh (vd: note app) dùng Compose + ViewModel + Flow, có Service và BroadcastReceiver.
 
-#### Android System Architecture
+**✅ Kết quả:** Build được app Android hoàn chỉnh, hiểu cách từng component tương tác với hệ thống.
 
-- Layers Overview:
+---
 
-<picture>
-  <source media="(max-width: 768px)" srcset="/img/medium/700/1*S4bhVj-oIK2aUJWdqEvLFw.png 1x">
-  <source media="(min-width: 769px)" srcset="/img/medium/2000/1*S4bhVj-oIK2aUJWdqEvLFw.png 1x">
-  <img src="/img/medium/700/1*S4bhVj-oIK2aUJWdqEvLFw.png" alt="None" width="1063" height="122" loading="lazy" data-zoom-src="/img/medium/4000/1*S4bhVj-oIK2aUJWdqEvLFw.png" class="prose-image" data-caption="Android Operating System Architecture"/>
-</picture>
+## PHASE 2: Android Internals (System Understanding)
 
-- Role of each layer in the system
-- Relationship between Java Framework & Native Components
+**Mục tiêu:** Hiểu Android hoạt động *bên dưới* thế nào — nền tảng cho AAOS và HAL-level development.
 
-#### Key Android Internals
+### Android System Architecture
 
-- System Services overview:
- `ActivityManager`, `WindowManager`, `PackageManager`, `CarPropertyManager`
-- **Binder IPC Mechanism** — how processes communicate in Android
-- **Android Runtime (ART)** — how Kotlin/Java apps are compiled and run
-- **Zygote Process** — app process creation and preloading
-- **Android Boot Process & Init System** — from kernel to system_server
-- **AAOS Structure and Build System**
-- How AAOS is built (AOSP + car-specific layers)
-- Role of "Car Services" and "Vehicle HAL"
+- [ ] Các layer của Android OS (Kernel → HAL → Native Libraries → ART → Framework → Apps)
+- [ ] Vai trò từng layer trong hệ thống
+- [ ] Quan hệ giữa Java Framework & Native Components
 
-**Outcome:** You'll know _how the OS boots, runs, and communicates internally_ — crucial for Automotive system roles.
+### Key Android Internals
 
-### PHASE 3: Programming Languages for Automotive
+- [ ] System Services: `ActivityManager`, `WindowManager`, `PackageManager`, `CarPropertyManager`
+- [ ] **Binder IPC** — cách các process giao tiếp trong Android
+- [ ] **Android Runtime (ART)** — cách Kotlin/Java được compile và chạy
+- [ ] **Zygote Process** — tạo app process và preloading
+- [ ] **Boot Process & Init System** — từ kernel đến system_server
+- [ ] **AAOS Structure & Build System** — AOSP + car-specific layers
+- [ ] Vai trò của Car Services và Vehicle HAL
 
-**Goal:** Be comfortable with the three main languages used at different layers.
+**🎯 Thực hành:** Build AOSP emulator image, đọc log boot process, dùng `dumpsys` khám phá system services.
 
-<picture>
-  <source media="(max-width: 768px)" srcset="/img/medium/700/1*zDWGBT2iJeeaqp_1YKYf9w.png 1x">
-  <source media="(min-width: 769px)" srcset="/img/medium/2000/1*zDWGBT2iJeeaqp_1YKYf9w.png 1x">
-  <img src="/img/medium/700/1*zDWGBT2iJeeaqp_1YKYf9w.png" alt="None" width="1528" height="348" loading="lazy" data-zoom-src="/img/medium/4000/1*zDWGBT2iJeeaqp_1YKYf9w.png" class="prose-image"/>
-</picture>
+**✅ Kết quả:** Hiểu OS boot, chạy và giao tiếp nội bộ thế nào — bắt buộc cho vai trò Automotive system.
 
-#### What to Learn
+---
 
-- Kotlin advanced concepts (Coroutines, Flow, DSLs)
-- Java for framework work (Binder, AIDL)
-- C/C++ fundamentals
-- JNI (Java Native Interface) — calling C/C++ from Java
-- Android.mk & CMakeLists for native builds
+## PHASE 3: Programming Languages for Automotive
 
-**Outcome:** You can move between Java (framework) and C++ (HAL) layers comfortably.
+**Mục tiêu:** Thành thạo 3 ngôn ngữ chính ở các layer khác nhau.
 
-### PHASE 4: Native & HAL Development
+| Ngôn ngữ | Layer | Dùng cho |
+|----------|-------|----------|
+| Kotlin | App | Automotive apps, UI |
+| Java | Framework | System services, Binder, AIDL |
+| C/C++ | Native/HAL | HAL, Vehicle HAL, native libs |
 
-**Goal:** Understand how Android communicates with the car hardware.
+- [ ] Kotlin nâng cao: Coroutines, Flow, DSLs
+- [ ] Java cho framework work: Binder, AIDL
+- [ ] C/C++ fundamentals (pointers, memory, build)
+- [ ] JNI — gọi C/C++ từ Java/Kotlin
+- [ ] Android.mk & CMakeLists cho native builds
 
-#### Topics to Learn
+**🎯 Thực hành:** Viết 1 app Kotlin gọi native C++ function qua JNI.
 
-#### 1. HAL (Hardware Abstraction Layer)
+**✅ Kết quả:** Di chuyển thoải mái giữa layer Java (framework) và C++ (HAL).
 
-- What is HAL and its purpose
-- Writing and integrating a custom HAL
-- HAL directory structure in AOSP (`/hardware/interfaces/`)
+---
 
-#### 2. HIDL & AIDL
+## PHASE 4: Native & HAL Development
 
-- **HIDL (HAL Interface Definition Language)** — used in older Android versions
-- **AIDL (Android Interface Definition Language)** — new IPC mechanism
-- Define, compile, and use AIDL interfaces
-- Communication between System Service ↔ HAL ↔ App
+**Mục tiêu:** Hiểu cách Android giao tiếp với phần cứng xe.
 
-#### 3. Vendor Interface & Project Treble
+### 1. HAL (Hardware Abstraction Layer)
 
-- What is Treble Architecture
-- Vendor partition separation
-- Role of VINTF (Vendor Interface Manifest)
+- [ ] HAL là gì, mục đích
+- [ ] Viết và tích hợp custom HAL
+- [ ] Cấu trúc thư mục HAL trong AOSP (`/hardware/interfaces/`)
 
-#### 4. Car Service & Car API
+### 2. HIDL & AIDL
 
-- `CarPropertyManager` → Read/write vehicle properties
-- `CarInfoManager`, `CarSensorManager`, `CarAppFocusManager`
-- Understanding Car Service as a System App in AAOS
+- [ ] **HIDL** — dùng ở Android cũ (≤ Android 10)
+- [ ] **AIDL** — cơ chế IPC mới cho HAL
+- [ ] Define, compile và dùng AIDL interfaces
+- [ ] Luồng giao tiếp: System Service ↔ HAL ↔ App
 
-#### 5. Android Properties System
+### 3. Vendor Interface & Project Treble
 
-- `getprop`, `setprop` commands
-- Defining system and vendor properties
+- [ ] Treble Architecture là gì
+- [ ] Vendor partition separation
+- [ ] VINTF (Vendor Interface Manifest)
 
-**Outcome:** You'll understand how the software layer communicates with the vehicle ECUs and sensors — the real Automotive magic.
+### 4. Car Service & Car API
 
-### PHASE 5: Debugging & Profiling Tools
+- [ ] `CarPropertyManager` — đọc/ghi vehicle properties
+- [ ] `CarInfoManager`, `CarSensorManager`, `CarAppFocusManager`
+- [ ] Car Service như một System App trong AAOS
 
-**Goal:** Learn to inspect, debug, and profile both apps and system-level components.
+### 5. Android Properties System
 
-#### Core Tools
+- [ ] `getprop`, `setprop`
+- [ ] Định nghĩa system và vendor properties
 
-#### A. Command-Line Tools
+**🎯 Thực hành:** Viết 1 AIDL HAL đơn giản, expose 1 property mới qua `CarPropertyManager` trên AAOS emulator.
 
-- **ADB (Android Debug Bridge)** — connect, push, log, shell
-- **Fastboot** — flashing images, recovery mode
-- **logcat** — system logs
-- **dmesg** — kernel logs
+**✅ Kết quả:** Hiểu software layer giao tiếp với ECU và sensor của xe thế nào.
 
-#### B. Profiling & Tracing
+---
 
-- **Traceview** — function-level profiling
-- **Perfetto / Systrace** — system performance tracing
-- **Android Studio Profiler** — CPU, memory, and network analysis
-- **GDB / LLDB** — debugging native code
-- **strace** — system call tracing
+## PHASE 5: Debugging & Profiling Tools
 
-#### C. System Diagnostics
+**Mục tiêu:** Inspect, debug và profile cả app lẫn system-level component.
 
-- **dumpsys** — dump system service info
-- **dumpstate** — device state snapshot
-- **bugreport** — full issue capture (used in Automotive debugging)
+### Command-Line Tools
 
-**Outcome:** You'll be able to troubleshoot anything — from app crashes to system-level issues.
+- [ ] **ADB** — connect, push, log, shell
+- [ ] **Fastboot** — flash image, recovery mode
+- [ ] **logcat** — system logs
+- [ ] **dmesg** — kernel logs
 
-### PHASE 6: Automotive Specialization
+### Profiling & Tracing
 
-**Goal:** Apply all knowledge to Android Automotive OS (AAOS) specifically.
+- [ ] **Perfetto / Systrace** — system performance tracing
+- [ ] **Android Studio Profiler** — CPU, memory, network
+- [ ] **GDB / LLDB** — debug native code
+- [ ] **strace** — system call tracing
 
-#### What to Learn
+### System Diagnostics
 
-#### 1. AAOS Overview
+- [ ] **dumpsys** — dump system service info
+- [ ] **dumpstate** — device state snapshot
+- [ ] **bugreport** — full issue capture (chuẩn trong Automotive debugging)
 
-- What is AAOS
-- How it differs from Android Auto
-- AAOS layers: Framework, Car Service, Vehicle HAL
-- OEM customization and branding (Volvo, Polestar, Stellantis)
+**🎯 Thực hành:** Trace 1 lần boot bằng Perfetto, phân tích 1 bugreport thật.
 
-#### 2. Automotive Application Development
+**✅ Kết quả:** Troubleshoot được mọi thứ — từ app crash đến system-level issue.
 
-- Use **Car App Library**
-- Develop Media, Navigation, and POI apps
-- Use **CarContext**, **Template APIs**, and **Car UX Guidelines**
-- Handle **Voice Commands** & Google Assistant Integration
+---
 
-#### 3. Vehicle Integration
+## PHASE 6: Automotive Specialization (AAOS)
 
-- Work with **Vehicle HAL** (read/write car data)
-- Understand **CAN Bus / ECU communication**
-- Implement new CarProperty values
+**Mục tiêu:** Áp dụng toàn bộ kiến thức vào Android Automotive OS.
 
-#### 4. OEM Customization & System UI
+### 1. AAOS Overview
 
-- Custom launchers
-- SystemUI modifications for automotive
-- Build overlays for branding and custom features
+- [ ] AAOS là gì, khác Android Auto thế nào
+- [ ] Các layer AAOS: Framework → Car Service → Vehicle HAL
+- [ ] OEM customization & branding (Volvo, Polestar, Stellantis)
 
-**Outcome:** You'll be ready for **Automotive App Developer**, **System Developer**, or **AAOS Framework Engineer** roles.
+### 2. Automotive Application Development
 
-### Summary
+- [ ] **Car App Library**
+- [ ] Develop Media, Navigation, POI apps
+- [ ] **CarContext**, **Template APIs**, **Car UX Guidelines**
+- [ ] Voice Commands & Google Assistant integration
 
-This roadmap gives you a clear path to master Android Automotive from app development to system-level engineering. With the right blend of Android, embedded, and automotive knowledge, you'll be ready to build the next generation of smart, connected vehicles.
+### 3. Vehicle Integration
 
-Thank you for reading. 🙌🙏✌.
+- [ ] **Vehicle HAL** — đọc/ghi car data
+- [ ] **CAN Bus / ECU communication**
+- [ ] Implement CarProperty values mới
 
-**Need 1:1 Career Guidance or Mentorship?**
+### 4. OEM Customization & System UI
 
-If you're looking for personalized guidance, **interview preparation help**, or just want to talk about your **career path in mobile development** — you can book a 1:1 session with me on **Topmate**.
+- [ ] Custom launchers
+- [ ] SystemUI modifications cho automotive
+- [ ] Runtime Resource Overlays (RRO) cho branding
 
-🔗 [Book a session here](https://topmate.io/anand_gaur)
+**🎯 Project tổng kết:** Build 1 media app bằng Car App Library chạy trên AAOS emulator + custom 1 vehicle property từ VHAL lên UI.
 
-I've helped many developers grow in their careers, switch jobs, and gain clarity with focused mentorship. Looking forward to helping you too!
+**✅ Kết quả:** Sẵn sàng cho vai trò **Automotive App Developer**, **System Developer**, hoặc **AAOS Framework Engineer**.
 
-> Found this helpful? Don't forgot to clap 👏 and follow me for more such useful articles about Android development and Kotlin or buy us a coffee [here](https://buymeacoffee.com/anandgaur) ☕
+---
 
-### Crack Android Interviews Like a Pro
+## 📚 Resources
 
-Your complete **Android interview preparation book** — packed with real questions, deep explanations, and practical insights to help you stand out.
-**👉 Grab your copy now:**
-[https://medium.com/@anandgaur2207/crack-android-interviews-with-confidence-the-only-handbook-youll-need-b87ec525f19c](https://medium.com/@anandgaur2207/crack-android-interviews-with-confidence-the-only-handbook-youll-need-b87ec525f19c)
-
-𝗕𝗼𝗼𝗸 𝗣𝗿𝗲𝘃𝗶𝗲𝘄: [https://drive.google.com/file/d/1uq8HUzp6tx63lrkw_vRoTxILdAFJuUwc/view?usp=sharing](https://drive.google.com/file/d/1uq8HUzp6tx63lrkw_vRoTxILdAFJuUwc/view?usp=sharing)
-
-If you need any help related to Mobile app development. I'm always happy to help you.
-
-Follow me on:
-
-[LinkedIn](https://www.linkedin.com/in/anandgaur22/), [Github](https://github.com/anandgaur22), [Instagram](https://www.instagram.com/tech.anandgaur) , [YouTube](https://www.youtube.com/@technicalanandgaur) & [WhatsApp](https://wa.me/9807407363)
+- [Android Automotive OS docs](https://source.android.com/docs/automotive)
+- [Car App Library](https://developer.android.com/training/cars)
+- [AOSP source](https://source.android.com/)
+- [Vehicle HAL reference](https://source.android.com/docs/automotive/vhal)
+- [Perfetto docs](https://perfetto.dev/)
