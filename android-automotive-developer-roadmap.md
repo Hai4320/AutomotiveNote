@@ -51,11 +51,9 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Kotlin Coroutines & Flow nâng cao
 - [ ] Permissions, Manifest, Gradle build types
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Android Basics with Compose](https://developer.android.com/courses/android-basics-compose/course) — course chính thức của Google
 - 📖 [Kotlin Coroutines & Flow docs](https://kotlinlang.org/docs/coroutines-overview.html)
-- 🎥 [Philipp Lackner](https://www.youtube.com/@PhilippLackner) — playlist Compose, Coroutines, Flow rất dễ hiểu
-- 🎥 [Android Developers](https://www.youtube.com/@AndroidDevelopers) — channel chính thức
 
 **✅ Kết quả:** Tự tin phần app — nền để so sánh khi học system side.
 
@@ -71,9 +69,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Vai trò từng layer trong hệ thống
 - [ ] Quan hệ giữa Java Framework & Native Components
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Android Architecture overview](https://source.android.com/docs/core/architecture) — docs chính thức AOSP
-- 🎥 [Android internals architecture — YouTube search](https://www.youtube.com/results?search_query=android+internals+architecture+deep+dive)
 
 ### Key Android Internals
 
@@ -85,13 +82,11 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **AAOS Structure & Build System** — AOSP + car-specific layers
 - [ ] Vai trò của Car Services và Vehicle HAL
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Android Runtime (ART)](https://source.android.com/docs/core/runtime) — docs chính thức
 - 📖 [Android Init README](https://android.googlesource.com/platform/system/core/+/master/init/README.md) — init system từ source
 - 📖 Sách **"Embedded Android"** — Karim Yaghmour (O'Reilly), kinh điển về internals
 - 📖 Sách **"Android Internals"** — Jonathan Levin ([newandroidbook.com](http://newandroidbook.com/))
-- 🎥 [Binder IPC explained — YouTube search](https://www.youtube.com/results?search_query=android+binder+ipc+explained)
-- 🎥 [Android boot process — YouTube search](https://www.youtube.com/results?search_query=android+boot+process+zygote+system_server)
 
 **🎯 Thực hành:** Dùng `dumpsys`, `ps`, đọc log boot trên emulator — map lý thuyết vào thực tế.
 
@@ -115,14 +110,12 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] NDK, CMakeLists cho native builds
 - [ ] Java Binder & AIDL (ôn phần framework)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [learncpp.com](https://www.learncpp.com/) — học C++ từ zero, miễn phí, rất kỹ
 - 📖 Sách **"The C Programming Language"** — K&R, kinh điển cho C
 - 📖 [NDK Guides](https://developer.android.com/ndk/guides) — docs chính thức
 - 📖 [JNI Tips](https://developer.android.com/training/articles/perf-jni) — best practices JNI từ Google
 - 📖 [AIDL docs](https://developer.android.com/develop/background-work/services/aidl)
-- 🎥 [freeCodeCamp](https://www.youtube.com/@freecodecamp) — full course C/C++ miễn phí
-- 🎥 [Android NDK JNI tutorial — YouTube search](https://www.youtube.com/results?search_query=android+ndk+jni+tutorial+kotlin)
 
 **🎯 Thực hành:** App Kotlin gọi native C++ qua JNI; viết 1 AIDL interface giữa 2 app.
 
@@ -141,12 +134,11 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Kernel concepts: device tree, kernel module, driver là gì
 - [ ] SELinux cơ bản (permissive/enforcing, sepolicy — nguồn lỗi kinh điển khi làm HAL)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [MIT Missing Semester](https://missing.csail.mit.edu/) — shell, git, tooling (kèm video bài giảng)
 - 📖 [Linux Journey](https://linuxjourney.com/) — học Linux từ zero, miễn phí
 - 📖 [Bootlin training materials](https://bootlin.com/docs/) — slides embedded Linux/kernel miễn phí, chuẩn ngành
 - 📖 [SELinux for Android](https://source.android.com/docs/security/features/selinux) — docs chính thức
-- 🎥 [freeCodeCamp](https://www.youtube.com/@freecodecamp) — Linux full course
 
 ### AOSP Build System
 
@@ -157,12 +149,11 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Partition layout: system, vendor, product, odm
 - [ ] Flash image vào thiết bị thật / bench board (nếu có)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [AOSP — Set up & download source](https://source.android.com/docs/setup/start) — docs chính thức, làm theo từng bước
 - 📖 [repo command reference](https://source.android.com/docs/setup/reference/repo)
 - 📖 [Soong build system](https://source.android.com/docs/setup/build) — Android.bp
 - 📖 [Android partitions](https://source.android.com/docs/core/architecture/partitions)
-- 🎥 [Build AOSP from source — YouTube search](https://www.youtube.com/results?search_query=build+aosp+from+source+tutorial)
 
 **🎯 Thực hành:** Sync AOSP, build target `sdk_car_x86_64`, chạy AAOS emulator từ image tự build, sửa 1 dòng trong SystemUI rồi rebuild.
 
@@ -180,9 +171,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Viết và tích hợp custom HAL
 - [ ] Cấu trúc thư mục HAL trong AOSP (`/hardware/interfaces/`)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [HAL overview](https://source.android.com/docs/core/architecture/hal) — docs chính thức
-- 🎥 [Android HAL development — YouTube search](https://www.youtube.com/results?search_query=android+hal+development+tutorial+aosp)
 
 ### 2. HIDL & AIDL
 
@@ -191,7 +181,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Define, compile và dùng AIDL interfaces
 - [ ] Luồng giao tiếp: System Service ↔ HAL ↔ App
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [AIDL for HALs](https://source.android.com/docs/core/architecture/aidl/aidl-hals) — docs chính thức
 - 📖 [HIDL overview](https://source.android.com/docs/core/architecture/hidl) — cho code cũ
 
@@ -201,9 +191,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Vendor partition separation
 - [ ] VINTF (Vendor Interface Manifest)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [VINTF overview](https://source.android.com/docs/core/architecture/vintf) — docs chính thức
-- 🎥 [Project Treble explained — YouTube search](https://www.youtube.com/results?search_query=project+treble+android+architecture+explained)
 
 ### 4. Car Service & Car API
 
@@ -211,7 +200,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] `CarInfoManager`, `CarSensorManager`, `CarAppFocusManager`
 - [ ] Car Service như một System App trong AAOS
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Car API reference](https://developer.android.com/reference/android/car/Car)
 - 📖 [CarPropertyManager](https://developer.android.com/reference/android/car/hardware/property/CarPropertyManager)
 
@@ -220,7 +209,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] `getprop`, `setprop`
 - [ ] Định nghĩa system và vendor properties
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Add system properties](https://source.android.com/docs/core/architecture/configuration/add-system-properties) — docs chính thức
 
 **🎯 Thực hành:** Viết 1 AIDL HAL đơn giản, expose 1 property mới qua `CarPropertyManager` trên AAOS emulator (image tự build ở Phase 3).
@@ -240,21 +229,19 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **Automotive Ethernet** & **SOME/IP** — xu hướng xe mới
 - [ ] Đọc/phân tích CAN log (candump, SavvyCAN)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [CAN Bus tutorial — CSS Electronics](https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial) — intro tốt nhất cho người mới
 - 📖 [SocketCAN kernel docs](https://www.kernel.org/doc/html/latest/networking/can.html) — CAN trên Linux
 - 📖 [SOME/IP official](https://some-ip.com/) — spec từ BMW
 - 📖 [SavvyCAN](https://www.savvycan.com/) — tool phân tích CAN log, miễn phí
-- 🎥 [CSS Electronics](https://www.youtube.com/@CSSElectronics) — channel chuyên CAN/UDS, video ngắn dễ hiểu
 
 ### Diagnostics
 
 - [ ] **UDS (ISO 14229)** — dịch vụ chẩn đoán, DID, DTC
 - [ ] **DoIP** — diagnostics over IP
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [UDS tutorial — CSS Electronics](https://www.csselectronics.com/pages/uds-protocol-tutorial-unified-diagnostic-services)
-- 🎥 [UDS protocol explained — YouTube search](https://www.youtube.com/results?search_query=uds+protocol+iso+14229+explained)
 
 ### Kiến trúc ECU
 
@@ -262,10 +249,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] ECU, domain controller, zonal architecture là gì
 - [ ] Vehicle HAL nhận data từ CAN thế nào (luồng CAN → VHAL → CarService → App)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [AUTOSAR official](https://www.autosar.org/) — spec chính thức
-- 🎥 [AUTOSAR Classic vs Adaptive — YouTube search](https://www.youtube.com/results?search_query=autosar+classic+vs+adaptive+explained)
-- 🎥 [Zonal architecture — YouTube search](https://www.youtube.com/results?search_query=automotive+zonal+architecture+explained)
 
 **🎯 Thực hành:** Dựng virtual CAN (`vcan`) trên Linux, gửi/nhận frame bằng `can-utils`, parse bằng DBC.
 
@@ -285,7 +270,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **dmesg** — kernel logs
 - [ ] **Serial console** — debug khi board chưa boot được ADB (chuẩn khi làm bench)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [ADB docs](https://developer.android.com/tools/adb)
 - 📖 [logcat docs](https://developer.android.com/tools/logcat)
 
@@ -296,11 +281,10 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **GDB / LLDB** — debug native code
 - [ ] **strace** — system call tracing
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Perfetto docs](https://perfetto.dev/docs/) — kèm tutorial trace Android
 - 📖 [Android Studio Profiler](https://developer.android.com/studio/profile)
 - 📖 [Debug native code](https://developer.android.com/studio/debug)
-- 🎥 [Perfetto tracing tutorial — YouTube search](https://www.youtube.com/results?search_query=perfetto+android+tracing+tutorial)
 
 ### System Diagnostics
 
@@ -308,7 +292,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **dumpstate** — device state snapshot
 - [ ] **bugreport** — full issue capture (chuẩn trong Automotive debugging)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [dumpsys docs](https://developer.android.com/tools/dumpsys)
 - 📖 [Capture & read bug reports](https://developer.android.com/studio/debug/bug-report)
 
@@ -328,9 +312,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Các layer AAOS: Framework → Car Service → Vehicle HAL
 - [ ] OEM customization & branding (Volvo, Polestar, Stellantis)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [What is Android Automotive](https://source.android.com/docs/automotive/start/what_automotive) — docs chính thức
-- 🎥 [Android Automotive OS vs Android Auto — YouTube search](https://www.youtube.com/results?search_query=android+automotive+os+vs+android+auto)
 
 ### 2. Automotive Application Development
 
@@ -340,11 +323,10 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Voice Commands & Google Assistant integration
 - [ ] Driver Distraction rules (UX bị giới hạn khi xe chạy)
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Build apps for cars](https://developer.android.com/training/cars) — docs chính thức, có codelab
 - 📖 [Design for cars](https://developers.google.com/cars/design) — UX guidelines
 - 📖 [Car App Library samples (GitHub)](https://github.com/android/car-samples) — code mẫu chính thức
-- 🎥 [Android for Cars — Android Developers](https://www.youtube.com/results?search_query=android+for+cars+app+library+google+io)
 
 ### 3. Vehicle Integration
 
@@ -352,7 +334,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Implement CarProperty values mới
 - [ ] Luồng end-to-end: CAN → VHAL → CarService → App
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Vehicle HAL docs](https://source.android.com/docs/automotive/vhal) — docs chính thức
 - 📖 [Vehicle properties](https://source.android.com/docs/automotive/vhal/properties)
 
@@ -362,7 +344,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] SystemUI modifications cho automotive
 - [ ] Runtime Resource Overlays (RRO) cho branding
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Runtime Resource Overlays](https://source.android.com/docs/core/runtime/rros) — docs chính thức
 - 📖 [Car System UI customization](https://source.android.com/docs/automotive/hmi/car_ui) — Car UI library
 
@@ -373,9 +355,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **A/B (seamless) OTA update** — cách xe update phần mềm
 - [ ] Instrument cluster vs IVI — phân vùng safety
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [A/B (seamless) system updates](https://source.android.com/docs/core/ota/ab) — docs chính thức
-- 🎥 [Automotive cockpit hypervisor — YouTube search](https://www.youtube.com/results?search_query=automotive+cockpit+hypervisor+android+qnx)
 
 **🎯 Project tổng kết:** Media app bằng Car App Library trên AAOS emulator + custom 1 vehicle property từ VHAL lên UI, mô phỏng data từ vcan.
 
@@ -393,11 +374,9 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **ISO 26262** — functional safety, các mức ASIL (A→D), QM
 - [ ] **ISO 21434** & **UNECE R155/R156** — cybersecurity và OTA regulation
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Automotive SPICE official](https://vda-qmc.de/en/automotive-spice/) — spec chính thức từ VDA
 - 📖 [ISO 26262 — Wikipedia](https://en.wikipedia.org/wiki/ISO_26262) — overview đủ dùng cho khái niệm
-- 🎥 [ISO 26262 functional safety — YouTube search](https://www.youtube.com/results?search_query=iso+26262+functional+safety+introduction)
-- 🎥 [ASPICE explained — YouTube search](https://www.youtube.com/results?search_query=automotive+spice+aspice+explained)
 
 ### Workflow đặc thù
 
@@ -405,7 +384,7 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] Làm việc với requirement/spec từ OEM (DOORS, Polarion — biết khái niệm)
 - [ ] Chu kỳ build dài, test trên bench/HIL thay vì chỉ emulator
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [Gerrit walkthrough](https://gerrit-review.googlesource.com/Documentation/intro-gerrit-walkthrough.html) — hướng dẫn chính thức
 - 📖 [Contribute to AOSP](https://source.android.com/docs/setup/contribute) — workflow Gerrit thực tế
 
@@ -414,9 +393,8 @@ Checklist tự đánh giá — mục nào chưa chắc thì ôn lại:
 - [ ] **VTS / CTS** — test suite của AOSP
 - [ ] **HIL / SIL** — hardware/software-in-the-loop là gì
 
-**📚 Tài liệu & Video:**
+**📚 Tài liệu:**
 - 📖 [VTS (Vendor Test Suite)](https://source.android.com/docs/core/tests/vts) — docs chính thức
-- 🎥 [HIL testing explained — YouTube search](https://www.youtube.com/results?search_query=hardware+in+the+loop+testing+explained)
 
 **✅ Kết quả:** Qua vòng phỏng vấn automotive, không bỡ ngỡ với quy trình OEM/supplier.
 
