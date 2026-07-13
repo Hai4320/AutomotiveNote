@@ -13,6 +13,10 @@ tags:
 
 > Thuộc **Phase 1 — Android Internals** trong [roadmap](../android-automotive-developer-roadmap.md). Đọc sau [system-services.md](system-services.md) — SurfaceFlinger xuất hiện 3 note rồi, giờ mổ xẻ nó.
 
+Graphics pipeline là **chuỗi bước đưa hình ảnh từ app ra tới điểm ảnh trên màn hình** — từ lúc app vẽ nội dung của nó cho đến khi màn refresh và bạn nhìn thấy. Điều đầu tiên cần gỡ khỏi đầu (nhất là với app dev): **app không bao giờ vẽ thẳng ra màn hình**. Mỗi app chỉ vẽ vào một vùng nhớ riêng (buffer) của nó, rồi giao buffer đó cho hệ thống. Lý do là màn hình tại một thời điểm bị **nhiều thứ cùng tranh nhau**: app của bạn, status bar, thanh navigation, notification, các app khác ở chế độ chia đôi màn hình... Nếu ai cũng được ghi trực tiếp lên màn thì hình sẽ xé nát và giẫm đè lên nhau.
+
+Vì thế Android tách vai trò ra: mỗi app là một **producer** vẽ hình vào buffer của mình, còn một service trung tâm tên **SurfaceFlinger** đóng vai **consumer tổng** — nó gom buffer của tất cả các app cùng những layer hệ thống rồi **compose** (ghép lớp, quyết cái nào đè cái nào) thành một frame cuối cùng duy nhất, đúng nhịp refresh của màn. Cứ hình dung SurfaceFlinger như **một tổng đạo diễn dựng phim**: mỗi app quay cảnh riêng của mình rồi nộp thước phim; đạo diễn xếp lớp, cắt ghép thành một khung hình hoàn chỉnh trước khi chiếu lên màn. Sơ đồ dưới đi qua từng chặng của hành trình đó.
+
 ## Toàn cảnh: 1 frame từ app ra màn hình
 
 ```
@@ -63,7 +67,7 @@ adb shell dumpsys SurfaceFlinger --latency  # timing từng frame
 
 ## 🚗 Liên hệ Automotive
 
-- **Multi-display là chuyện thường**: IVI + instrument cluster + HUD + màn ghế sau — 1 SurfaceFlinger quản nhiều display, mỗi display 1 layer stack riêng.
+- **Multi-display là chuyện thường**: IVI (màn giữa) + instrument cluster (màn đồng hồ sau vô lăng) + HUD (Head-Up Display — chiếu lên kính lái) + màn ghế sau — 1 SurfaceFlinger quản nhiều display, mỗi display 1 layer stack riêng.
 - **Cluster ≠ được phép jank**: kim tốc độ giật là lỗi an toàn (nhiều OEM tách cluster sang chip/OS riêng hoặc guest VM riêng vì thế — xem hypervisor Phase 7).
 - **Camera lùi (EVS)** đi đường riêng cắm gần display, **bỏ qua SurfaceFlinger** — vì deadline < 2s và độ trễ frame thấp ([boot-process.md](boot-process.md)).
 - GPU trên SoC xe yếu hơn phone flagship → tối đa hóa **HWC overlay**, tránh Client composition là việc tune thật của platform team.

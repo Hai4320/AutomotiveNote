@@ -7,6 +7,7 @@ Ghi chú và lộ trình học **Android Automotive OS (AAOS)** — từ Android
 | | |
 |--|--|
 | 📍 [Roadmap 9 phase](android-automotive-developer-roadmap.md) | Lộ trình cho Android dev chuyển sang Automotive — checkbox tiến độ, project mỗi phase, tài liệu từng mục |
+| 📖 [Glossary](glossary.md) | Bảng thuật ngữ tra nhanh **dùng chung mọi phase** — Treble, partition, OEM/ODM, CAN/ECU, dexopt... |
 | 📂 [Phase 1 — Android Internals](1_android_internal/README.md) | 23 note: architecture, Binder, system services, ART, boot, kernel/GKI, HAL/VHAL — kèm thứ tự đọc & tổng kết |
 
 ## Lộ trình

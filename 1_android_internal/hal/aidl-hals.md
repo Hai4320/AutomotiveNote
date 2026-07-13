@@ -27,7 +27,7 @@ tags:
 
 - [ ] Interface chú thích **`@VintfStability`**
 - [ ] Khai báo trong **VINTF manifest** (device manifest / compatibility matrix)
-- [ ] Vendor code dùng **NDK backend** — link `libbinder_ndk`, **không dùng `libbinder`** (giữ API stability)
+- [ ] Vendor code dùng **NDK backend** (bản Binder API cho native/C++ vendor, ổn định ABI) — link `libbinder_ndk`, **không dùng `libbinder`** (giữ API stability)
 
 ## Vị trí trong source tree
 

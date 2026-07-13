@@ -14,10 +14,9 @@ tags:
 
 ## Phân vai trong 1 câu
 
-- **VHAL** = *phiên dịch viên phần cứng*: biến tín hiệu xe (CAN/ECU) thành **vehicle properties** chuẩn hóa.
-- **CarService** = *người gác cổng + điều phối*: quản lý property, **check permission**, cấp API an toàn cho app.
+Trong AAOS, hai thành phần này chia nhau việc "nói chuyện với chiếc xe": **VHAL là *phiên dịch viên phần cứng*** còn **CarService là *người gác cổng + điều phối***. VHAL nằm sát phần cứng, biến những tín hiệu xe hỗn tạp và đặc thù từng hãng (CAN bus, ECU, LIN...) thành **vehicle properties** chuẩn hóa — một danh sách property có ID, kiểu dữ liệu thống nhất mà framework Android nào cũng hiểu, bất kể xe của hãng nào. CarService đứng cao hơn một tầng: nó cầm danh sách property đó, **kiểm tra permission** xem app nào được phép đọc/ghi cái gì, rồi bọc lại thành Car API an toàn cho app dùng.
 
-App không bao giờ nói chuyện thẳng với VHAL — luôn qua CarService.
+Vì sao phải tách làm hai và tại sao **app không bao giờ nói chuyện thẳng với VHAL**? Vì đây là dữ liệu chiếc xe thật — sờ nhầm có thể mở cửa, đổi chế độ lái, đọc trộm vị trí. VHAL cố tình "ngây thơ": nó chỉ đưa ra số liệu thô ("tốc độ = 87"), không tự phán xét ai được xem. Toàn bộ phần "được phép hay không, làm gì với con số đó" dồn vào CarService — một cửa duy nhất để kiểm soát và kiểm toán. Nếu quen app dev: giống như app của bạn không truy cập thẳng vào database của server mà luôn phải đi qua một lớp API có xác thực ở giữa; VHAL là database phần cứng, CarService là lớp API gác cổng đó.
 
 ```
 ┌─────────────┐   Car API      ┌──────────────────┐   AIDL Binder   ┌────────────┐   CAN/ECU
@@ -43,9 +42,9 @@ Chạy process riêng `com.android.car` (không trong system_server — [system-
 | Service con | Quản gì |
 |-------------|---------|
 | `CarPropertyService` | Get/set/subscribe property — mặt tiền của VHAL |
-| `CarPowerManagementService` | Power state xe (STR — suspend to RAM, garage mode) |
-| `CarAudioService` | Audio zone (driver/passenger riêng), ducking, volume theo zone |
-| `CarInputService` | Nút bấm vô lăng, rotary controller |
+| `CarPowerManagementService` | Power state xe (STR — Suspend To RAM; **garage mode** — cửa sổ bảo trì khi xe đỗ tắt máy: thức ngầm chạy update/dexopt rồi ngủ lại) |
+| `CarAudioService` | Audio zone (driver/passenger riêng), **ducking** (tự hạ volume nhạc khi có âm ưu tiên như navigation), volume theo zone |
+| `CarInputService` | Nút bấm vô lăng, rotary controller (núm xoay điều khiển UI kiểu BMW iDrive) |
 | `CarUxRestrictionsManagerService` | **Driver distraction** — khóa UI khi xe chạy |
 | `CarDrivingStateService` | Trạng thái lái (parked / idling / moving) |
 

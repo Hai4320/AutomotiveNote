@@ -4,6 +4,8 @@
 
 ## Thứ tự đọc
 
+> 📖 [glossary.md](../glossary.md) — **bảng thuật ngữ tra nhanh dùng chung mọi phase** (Treble, partition, OEM/ODM, CAN/ECU, HVAC, dexopt...). Mở song song, gặp từ lạ thì tra; đọc trước 2 mục "khái niệm nền" (Treble + partition) sẽ đỡ vấp cả nửa sau phase.
+
 ### 1. Bức tranh lớn
 1. [android-architecture.md](android-architecture.md) — 6 layer AOSP: Apps → Framework → ART → HAL → Native → Kernel
 2. [java-native-relationship.md](java-native-relationship.md) — 2 cầu nối JNI vs Binder
@@ -64,7 +66,7 @@
 
 - [ ] Vẽ lại từ trí nhớ: luồng `App → CarPropertyManager → CarService → VHAL → CAN` và chỉ ra chỗ nào Binder, chỗ nào permission check
 - [ ] Giải thích được vì sao camera lùi không đi qua Java stack
-- [ ] Trả lời hết câu hỏi tự kiểm tra trong 23 note trên
+- [ ] Trả lời hết câu hỏi tự kiểm tra trong 23 note trên (+ glossary)
 
 ## 🎯 Thực hành khép phase (từ roadmap)
 

@@ -15,16 +15,17 @@ tags:
 
 ## Binder là gì?
 
-- Cơ chế **IPC (Inter-Process Communication) chính của Android** — gần như mọi giao tiếp giữa process đi qua nó: app ↔ system service, framework ↔ HAL, app ↔ app.
-- Không dùng socket/pipe truyền thống làm chuẩn chung vì Binder cho: **gọi hàm như local (RPC)**, truyền object reference, kèm **identity người gọi** (UID/PID) để check permission.
+**Binder là cơ chế IPC (Inter-Process Communication — cách hai process nói chuyện với nhau) chính của Android.** Vì lý do bảo mật, mỗi app và mỗi service chạy trong process riêng, không đọc được bộ nhớ của nhau; muốn phối hợp thì phải có một đường truyền qua ranh giới process — đường đó là Binder. Gần như mọi giao tiếp trong máy đều đi qua nó: app ↔ system service, framework ↔ HAL, app ↔ app.
+
+Vì sao không dùng socket/pipe như Linux truyền thống? Vì Android cần thêm ba thứ mà socket không cho sẵn: **gọi hàm ở process khác trông y như gọi hàm local (RPC)** nên lập trình dễ, truyền được **object reference** giữa các process, và tự động kèm **identity người gọi** (UID/PID) để service kiểm tra quyền. Là app dev bạn đã xài Binder mà không biết: mỗi lần gọi `getSystemService()` rồi gọi method trên nó, bên dưới là một Binder call bay sang `system_server`.
 
 ## Kiến trúc
 
 ```
 Process A (client)                Process B (service)
 ┌─────────────────┐              ┌──────────────────┐
-│ Proxy (Stub)     │              │ Binder object     │
-│ interface AIDL   │              │ (implement thật)  │
+│ Proxy            │              │ Stub              │
+│ (AIDL interface) │              │ (implement thật)  │
 └───────┬─────────┘              └────────▲─────────┘
         │ transact()                       │ onTransact()
         ▼                                  │
@@ -33,8 +34,8 @@ Process A (client)                Process B (service)
 └─────────────────────────────────────────────────────┘
 ```
 
-- **Binder driver** (`/dev/binder`) — module kernel, trung chuyển mọi transaction, copy data giữa 2 process (1 lần copy, qua mmap).
-- **Proxy/Stub** — sinh tự động từ file **AIDL**; client gọi method như hàm local, proxy marshal tham số thành **Parcel**, gửi qua driver.
+- **Binder driver** (`/dev/binder`) — module kernel, trung chuyển mọi transaction, copy data giữa 2 process (chỉ **1 lần copy**: driver ghi thẳng vào vùng nhớ mà process đích đã mmap — map sẵn vào address space — nên không cần copy lần 2).
+- **Proxy/Stub** — sinh tự động từ file **AIDL**. **Proxy ở phía client**: client gọi method như hàm local, proxy marshal (serialize) tham số thành **Parcel**, gửi qua driver. **Stub ở phía service**: nhận Parcel, unmarshal, gọi implementation thật.
 - **servicemanager** — "danh bạ": service đăng ký tên, client tra tên lấy handle. Bản thân servicemanager cũng nói chuyện qua Binder (handle 0 đặc biệt).
 
 ## Luồng 1 lần gọi
@@ -75,7 +76,7 @@ ProcessState::initWithDriver("/dev/vndbinder");
 ```
 
 - Danh bạ riêng: **vndservicemanager** (thay servicemanager), context khai trong `vndservice_contexts`.
-- SELinux cần đủ 4 thứ: `vndbinder_use(domain)` (mở `/dev/vndbinder`), quyền transfer/call với vndservicemanager, `binder_call(A, B)` cho từng cặp domain, quyền `{add, find}` service — label dùng `vndservice_manager_type` trong `vndservice.te`.
+- SELinux cần bộ rule riêng cho vndbinder (`vndbinder_use`, `binder_call` giữa các cặp process, quyền `{add, find}` service). Các khái niệm domain/label/`.te` học ở [selinux.md](selinux.md) (note 20) — đọc xong quay lại đây sẽ hiểu trọn đoạn này.
 
 ## Tối ưu hiệu năng (Android 8+)
 

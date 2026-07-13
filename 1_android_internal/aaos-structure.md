@@ -16,8 +16,11 @@ tags:
 
 ## AAOS là gì?
 
-- **Nền tảng Android chạy trực tiếp trên phần cứng xe** — không phải fork riêng, là **phần mở rộng của cùng codebase Android** trên phone/tablet.
-- 2 nhiệm vụ: **IVI** (In-Vehicle Infotainment) hiện tại + nền cho **SDV** (Software-Defined Vehicle) tương lai.
+**AAOS (Android Automotive OS) là chính Android bạn đã biết, nhưng chạy trực tiếp trên phần cứng xe làm hệ điều hành của xe.** Điểm mấu chốt cho người mới: nó **không phải một fork riêng biệt**, mà là **cùng một codebase Android** trên phone/tablet được mở rộng thêm các layer chuyên cho xe. Kỹ năng Android bạn có vẫn dùng được — chỉ học thêm phần "xe".
+
+Vì sao Google làm nó? Vì màn hình trung tâm trên xe ngày càng cần một OS đầy đủ thay vì phần mềm nhúng rời rạc của từng hãng. AAOS gánh 2 nhiệm vụ: lo **IVI** (In-Vehicle Infotainment — hệ thống thông tin giải trí trung tâm: nhạc, bản đồ, điều hòa) ngay bây giờ, và làm nền cho **SDV** (Software-Defined Vehicle — xe mà tính năng do phần mềm quyết, cập nhật qua OTA) trong tương lai.
+
+Để tránh nhầm ngay từ đầu: AAOS khác hẳn Android Auto — một cái *là* OS của xe, cái kia chỉ chiếu màn hình điện thoại lên xe (xem bảng ngay dưới).
 
 ### AAOS vs Android Auto — hay nhầm
 
@@ -28,7 +31,7 @@ tags:
 | Ví dụ | Đa số xe đời cũ | Polestar, Volvo, GM, Renault... |
 
 ### GAS (Google Automotive Services)
-- Gói app/service Google (Maps, Assistant, Play Store) OEM **license riêng** để nhúng vào IVI — như GMS bên phone.
+- Gói app/service Google (Maps, Assistant, Play Store) OEM **license riêng** để nhúng vào IVI — như GMS (Google Mobile Services) bên phone.
 - AAOS thuần AOSP không có GAS → OEM tự làm store/map hoặc license.
 
 ## AAOS = AOSP + các layer car-specific
@@ -76,7 +79,7 @@ emulator                                        # chạy AAOS emulator
 |--------|----------|
 | `sdk_car_x86_64` | AAOS emulator trên máy dev (bài tập Phase 3) |
 | `sdk_car_arm64` | Emulator ARM (máy Apple Silicon) |
-| `aosp_cf_x86_64_auto` | Cuttlefish auto (cloud/CI) |
+| `aosp_cf_x86_64_auto` | Cuttlefish auto (Android ảo chạy trên cloud/CI) |
 | Target OEM (vd `sa8155_car`...) | Board thật của vendor |
 
 - Feature flag phân biệt car build: `PRODUCT_CHARACTERISTICS := automotive`, package `android.hardware.type.automotive`.
@@ -86,7 +89,7 @@ emulator                                        # chạy AAOS emulator
 
 - Sửa behavior xe = thường đụng **3 tầng cùng lúc**: app (`packages/apps/Car`) → CarService (`packages/services/Car`) → HAL (`hardware/interfaces/automotive`) — dự án thật chia team theo đúng 3 tầng này.
 - **KitchenSink** (`packages/apps/Car/Kitchensink`) — app test mọi Car API, công cụ khám phá nhanh nhất trên emulator.
-- OEM đổi branding/UI qua **RRO + CarSystemUI**, không sửa framework gốc (giữ khả năng merge AOSP mới).
+- OEM đổi branding/UI qua **RRO (Runtime Resource Overlay — đè resource như theme/layout mà không sửa APK gốc) + CarSystemUI**, không sửa framework gốc (giữ khả năng merge AOSP mới).
 
 ## Câu hỏi tự kiểm tra
 

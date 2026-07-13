@@ -16,9 +16,11 @@ tags:
 
 ## Android Kernel là gì?
 
-- Dựa trên **Linux LTS** (Long-Term Support) kernel.
-- Google lấy LTS + thêm các patch riêng cho Android → **ACK (Android Common Kernel)**.
-- Patch Android-specific chưa được merge vào Linux mainline (upstream).
+Kernel là phần lõi thấp nhất của hệ điều hành: nó nói chuyện trực tiếp với phần cứng (CPU, RAM, driver màn hình, cảm biến...) và quản lý tiến trình, bộ nhớ, quyền truy cập. Là app dev bạn hầu như không đụng tới nó, nhưng mọi lời gọi hệ thống của app cuối cùng đều rơi xuống kernel. Android không tự viết kernel riêng mà **dùng lại Linux kernel** — chính xác hơn là dựa trên nhánh **Linux LTS** (Long-Term Support): bản Linux được kernel.org cam kết vá lỗi và bảo mật trong nhiều năm, hợp với thiết bị cần ổn định lâu dài thay vì chạy theo bản mới nhất.
+
+Vấn đề là Linux mainline (bản gốc thượng nguồn) chưa có sẵn mọi thứ Android cần — ví dụ cơ chế quản lý bộ nhớ/nguồn cho điện thoại, một số driver và tooling — và quy trình merge vào mainline rất chậm. Vì vậy Google lấy Linux LTS làm nền rồi **chồng thêm các patch riêng cho Android**, tạo ra **ACK (Android Common Kernel)**. Có thể hình dung ACK như một "bản Linux đã tùy biến sẵn cho Android", nằm ở giữa Linux gốc và kernel thực chạy trên từng máy.
+
+Những patch Android-specific đó phần lớn **chưa được merge ngược vào Linux mainline** (**upstream** = repo gốc phía trên, ở đây là kernel.org). Đây là lý do có cả một dòng kernel riêng cho Android thay vì cài thẳng Linux như trên máy chủ hay PC.
 
 ```
 Linux mainline → Linux LTS → ACK (android-mainline / androidXX-Y.Y)
@@ -52,7 +54,7 @@ Giải quyết **kernel fragmentation** — trước đây mỗi OEM/SoC fork ke
 - Interface ổn định giữa **GKI kernel ↔ vendor modules**.
 - Định nghĩa qua **symbol list** — các function/global data mà vendor module được phép dùng.
 - Nhờ KMI ổn định → Google update GKI kernel độc lập, vendor module không cần build lại.
-- 🚗 *Liên hệ Automotive:* SoC xe (Qualcomm SA8155/8295, NXP i.MX, Renesas R-Car) đều ship driver dạng vendor module trên nền GKI/ACK — hiểu KMI để debug lỗi load module khi bring-up board.
+- 🚗 *Liên hệ Automotive:* SoC xe (Qualcomm SA8155/8295, NXP i.MX, Renesas R-Car) đều ship driver dạng vendor module trên nền GKI/ACK — hiểu KMI để debug lỗi load module khi **bring-up board** (đưa Android boot lần đầu trên board mới).
 
 ## So sánh nhanh: trước vs sau GKI
 

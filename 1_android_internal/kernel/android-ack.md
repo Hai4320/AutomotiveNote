@@ -54,9 +54,9 @@ androidRELEASE-KERNEL     ← nhánh GKI/KMI, vd: android15-6.6, android14-6.1
 
 ## Quy trình đóng góp (upstream-first)
 
-1. Phát triển feature trên **Linux mainline trước** (upstream-first policy).
-2. Được upstream chấp nhận → backport về nhánh ACK nếu cần.
-3. Gửi patch qua **Gerrit**: [android-review.googlesource.com](https://android-review.googlesource.com)
+1. Phát triển feature trên **Linux mainline trước** (upstream-first policy — gửi lên repo gốc kernel.org trước khi đem về nhánh riêng).
+2. Được upstream chấp nhận → **backport** (đem patch từ nhánh mới về nhánh cũ đang duy trì) về nhánh ACK nếu cần.
+3. Gửi patch qua **Gerrit** (hệ code review của AOSP): [android-review.googlesource.com](https://android-review.googlesource.com)
 
 🚗 *Liên hệ Automotive:* dự án xe chọn 1 nhánh ACK (vd `android14-6.1`) và **gắn chặt nhiều năm** — vòng đời xe dài hơn consumer phone, nên EOL 4–6 năm của ACK là ràng buộc thật khi chọn platform. Đổi nhánh kernel giữa chừng = rebuild toàn bộ vendor module (KMI không tương thích chéo nhánh).
 

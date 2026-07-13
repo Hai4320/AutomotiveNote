@@ -14,8 +14,9 @@ tags:
 
 ## System service là gì?
 
-- Process/thành phần nền cung cấp **chức năng lõi của OS** cho mọi app: quản lý activity, cửa sổ, package, pin, input...
-- App **không gọi thẳng** — đi qua manager class (`Context.getSystemService()`) → Binder → service thật.
+**System service là các thành phần chạy nền cung cấp chức năng lõi của OS cho mọi app**: quản lý vòng đời activity, cửa sổ, cài đặt package, pin, sự kiện chạm... Đây chính là "phần ruột" của Android đứng sau những API bạn gọi hằng ngày — khi app xin mở activity hay hỏi mức pin, thực ra một system service đang xử lý giúp.
+
+Vì sao gom lại thành service dùng chung? Vì những việc này cần đặc quyền và trạng thái toàn hệ thống mà từng app không được (và không nên) tự làm — ví dụ chỉ một nơi được quyết activity nào đang chạy foreground. Gom về vài service trung tâm giúp thống nhất, kiểm soát quyền, tránh mỗi app một kiểu. Quan trọng cho người mới: **app không gọi thẳng service** — nó cầm một manager class (lấy qua `Context.getSystemService()`) chạy ngay trong app, manager mới thay mặt gửi Binder call sang service thật ở process khác. Manager giống như nhân viên lễ tân: bạn nói với lễ tân, lễ tân mới vào trong chuyển yêu cầu.
 
 ```
 App

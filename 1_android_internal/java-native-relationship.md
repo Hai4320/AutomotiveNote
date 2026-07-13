@@ -15,12 +15,16 @@ tags:
 
 ## Ý chính
 
-**Java framework là bộ mặt API, native components là nơi làm việc nặng.** Hai bên nối nhau qua đúng 2 cây cầu:
+Android không phải chỉ có code Java. **Phần Java framework (`android.*`, `system_server`) là bộ mặt API bạn viết app lên trên, còn native components (C/C++) mới là nơi làm việc nặng** — render đồ họa, giải mã media, nói chuyện phần cứng. Là app dev bạn chỉ chạm tầng Java; làm platform thì phải hiểu code liên tục băng qua ranh giới Java ↔ native.
+
+Vì sao chia đôi như vậy? Vì Java/Kotlin viết nhanh, an toàn bộ nhớ, hợp cho tầng API; còn C++ cho tốc độ và truy cập trực tiếp phần cứng. Vấn đề nảy sinh: hai thế giới này gọi nhau kiểu gì? Câu trả lời là **đúng 2 cây cầu** — tùy code chạy cùng process hay khác process:
 
 | Cầu | Khi nào | Cơ chế |
 |-----|---------|--------|
 | **JNI** | Native lib **cùng process** | Gọi hàm trực tiếp |
 | **Binder IPC** | Native service **process khác** | Proxy → binder driver (kernel) → process đích |
+
+Ví dụ dễ hình dung: gọi `Bitmap` (cùng process) đi qua JNI như gọi hàm thường; còn nhờ `SurfaceFlinger` (process riêng) vẽ màn hình thì phải qua Binder — như gọi điện sang phòng ban khác thay vì quay sang hỏi người ngồi cạnh.
 
 ```
 Java Framework (android.*, system_server)
@@ -47,7 +51,7 @@ public final class Bitmap {
 
 ## Cầu 2: Binder IPC — khác process
 
-- Logic nằm ở process khác → gọi qua **proxy (AIDL stub)** → binder driver trong kernel → process đích.
+- Logic nằm ở process khác → gọi qua **Proxy** (sinh từ AIDL, phía client) → binder driver trong kernel → **Stub** (phía service) gọi implementation thật.
 - Ví dụ:
   - App gọi `WindowManager` (Java, system_server) → render thật do **SurfaceFlinger** (native, process riêng)
   - `SensorManager` (Java) → JNI → `libsensorservice` → sensor HAL

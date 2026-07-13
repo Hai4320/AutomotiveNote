@@ -12,6 +12,10 @@ tags:
 
 > Thuộc **Phase 1 — Android Internals** trong [roadmap](../android-automotive-developer-roadmap.md). Đọc sau [zygote.md](zygote.md) — mảnh cuối ghép kín bức tranh boot.
 
+Boot process là **chuỗi bước từ lúc bấm nút nguồn đến khi màn hình launcher hiện ra** — mỗi bước dựng lên một tầng và bàn giao cho tầng kế tiếp. Nó phải chia thành nhiều giai đoạn vì lúc mới bật nguồn máy gần như chưa có gì: chưa có RAM được cấu hình, chưa có filesystem, chưa có process nào. Không thể nhảy thẳng vào chạy app, nên hệ thống dựng dần: phần cứng khởi động phần cứng, rồi mới nạp được kernel, kernel mới tạo được process đầu tiên, process đó mới dựng được phần còn lại.
+
+Với app dev quen bắt đầu ở `onCreate()`, thì đây là tất cả những gì xảy ra **trước khi** code Java của bạn có cơ hội chạy. Ranh giới quan trọng nhất cần nhớ: **userspace bắt đầu từ `init`** (PID 1). Trước `init` là thế giới phần cứng và kernel (không gian nhân); từ `init` trở đi mới là các process bình thường — và mọi thứ Android mà ta biết (Zygote, system_server, app) đều là con cháu của `init`. Cứ hình dung `init` như hàm `main()` của cả userspace: nó là gốc, mọi process khác mọc ra từ nó.
+
 ## Toàn cảnh
 
 ```
@@ -46,11 +50,11 @@ Nguồn bật
 ### 1–2. Boot ROM & Bootloader
 - Boot ROM: code trong silicon, không đổi được — verify + load bootloader.
 - Bootloader: khởi tạo RAM/clock, **verify boot image (AVB — Android Verified Boot)** rồi nhảy vào kernel.
-- Giữ nút → **fastboot mode**: flash partition từ đây ([android-gki.md](kernel/android-gki.md) — flash `boot`, `vendor_boot`).
+- Giữ nút → **fastboot mode** (chế độ flash partition qua USB bằng tool `fastboot`): flash từ đây ([android-gki.md](kernel/android-gki.md) — flash `boot`, `vendor_boot`).
 
 ### 3. Kernel
 - Load từ `boot` partition (GKI) + vendor modules từ `vendor_boot`/`vendor_dlkm` ([android-lkm.md](kernel/android-lkm.md)).
-- Mount ramdisk, chạy xong khởi tạo → exec **`/init`**.
+- Mount ramdisk (filesystem nhỏ đóng trong boot image, nạp thẳng vào RAM — chứa `/init`), chạy xong khởi tạo → exec **`/init`**.
 
 ### 4. init (PID 1) — trái tim của userspace boot
 
@@ -58,7 +62,7 @@ Chạy 2 giai đoạn:
 
 | Giai đoạn | Làm gì |
 |-----------|--------|
-| **First stage** | Mount partition cơ bản (`/dev`, `/proc`, `/sys`), load thêm kernel module, mount system/vendor qua dm-verity |
+| **First stage** | Mount partition cơ bản (`/dev`, `/proc`, `/sys`), load thêm kernel module, mount system/vendor qua dm-verity (kernel verify toàn vẹn partition mỗi lần đọc — xem [glossary.md](../glossary.md)) |
 | **Second stage** | Load **SELinux policy** (permissive→enforcing), parse **init.rc**, xử lý property, start services |
 
 #### init.rc — ngôn ngữ cấu hình
@@ -103,7 +107,7 @@ dmesg                                      # kernel stage
 
 ## 🚗 Liên hệ Automotive
 
-- **Boot time = KPI hợp đồng** (OEM yêu cầu kiểu "cold boot → HMI < 10s, camera lùi < 2s").
+- **Boot time = KPI hợp đồng** (OEM yêu cầu kiểu "cold boot → HMI (Human-Machine Interface — giao diện người lái thấy) < 10s, camera lùi < 2s").
 - Camera lùi: đi đường **EVS (Extended View System)** — native service start bằng init.rc `early-init`/`boot` class sớm, **không chờ Zygote/Java**.
 - Tune: sắp thứ tự service trong init.rc (class `early_hal` trước), giảm preload, dexpreopt ([art/art-configure.md](art/art-configure.md)), đo bằng `bootanalyze`/Perfetto boot trace.
 - Vendor service tự viết = thêm file `.rc` vào `/vendor/etc/init/` + sepolicy — bài tập Phase 4.

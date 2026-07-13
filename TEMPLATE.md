@@ -12,7 +12,8 @@ N_ten_phase/
     └── chu-de-b.md
 ```
 
-- README gốc của repo chỉ link tới roadmap + README từng phase — **không** index từng note.
+- README gốc của repo chỉ link tới roadmap + [glossary.md](glossary.md) + README từng phase — **không** index từng note.
+- **glossary.md ở root dùng chung mọi phase**: thuật ngữ mới của phase → thêm vào đây (không tạo glossary riêng từng phase). Note link về bằng đường dẫn tương đối (`../glossary.md` nếu note nằm trong `N_ten_phase/`).
 
 ## Format 1 note
 

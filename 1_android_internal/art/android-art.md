@@ -16,9 +16,11 @@ tags:
 
 ## ART là gì?
 
-- **Managed runtime** — môi trường thực thi của app Android.
-- Chạy **DEX bytecode** (Dalvik Executable).
-- Thay thế **Dalvik** (runtime gốc của Android, đến Android 4.4).
+**ART (Android Runtime)** là **managed runtime** — lớp phần mềm đứng giữa app của bạn và CPU/OS để chạy app Android. "Managed" nghĩa là runtime tự lo bộ nhớ (garbage collection), kiểm tra kiểu, xử lý exception… thay cho lập trình viên — giống JVM lo cho app Java trên desktop. Khi làm app, bạn viết Kotlin/Java rồi bấm Run; ART chính là cái thực sự nạp và thực thi code đó trên máy.
+
+Vì sao Android cần một runtime *riêng* thay vì dùng thẳng JVM? Điện thoại/xe hơi có RAM ít, pin hạn chế và CPU yếu hơn máy chủ. Google thiết kế ART chạy **DEX bytecode** (Dalvik Executable) — một định dạng bytecode gọn hơn `.class` của JVM, tối ưu cho thiết bị nhiều app cùng chạy. ART **thay thế Dalvik** (runtime gốc của Android, dùng đến Android 4.4), điểm khác cốt lõi là cách nó biến bytecode thành machine code.
+
+Ba chiến lược compile bạn sẽ gặp suốt chuỗi note này, ở mức khái quát: **AOT** (Ahead-Of-Time) compile *trước khi chạy* — như biên dịch sẵn ra file thực thi, chạy nhanh nhưng tốn dung lượng và thời gian compile; **JIT** (Just-In-Time) compile *ngay lúc chạy* những đoạn code hay dùng — như dịch tại chỗ khi cần; **interpreter** đọc và thực thi từng lệnh bytecode mà không compile — chậm nhất nhưng khởi động tức thì. ART kết hợp cả ba (chi tiết ở [art-jit.md](art-jit.md)).
 
 ## Luồng compile: Kotlin → chạy trên máy
 
@@ -30,10 +32,20 @@ JVM bytecode (.class)
    │ D8/R8
    ▼
 DEX bytecode (.dex, đóng gói trong APK)
-   │ dex2oat (AOT, lúc cài đặt) + JIT (lúc chạy)
+   │ dex2oat (AOT — lúc cài hoặc chạy nền sau) + JIT (lúc chạy)
    ▼
 Native machine code
 ```
+
+Phân biệt 3 cái tên gần giống nhau (gặp suốt chuỗi ART):
+
+| Tên | Là gì |
+|-----|-------|
+| **dex2oat** | *Tool* compile DEX → machine code |
+| **dexopt** | *Việc* compile trên thiết bị (dex2oat thực hiện): lúc cài, lúc idle, sau OTA |
+| **dexpreopt** | Compile sẵn *lúc build image* — app hệ thống lên máy đã có code compile |
+
+- **Interpreter** = chạy bytecode bằng cách dịch từng lệnh lúc runtime, không compile trước — chậm nhưng chạy được ngay, là trạng thái đầu tiên của mọi method (xem [art-jit.md](art-jit.md)).
 
 ## ART vs Dalvik
 
@@ -47,7 +59,7 @@ Native machine code
 ## Tính năng chính
 
 ### AOT compilation
-- **`dex2oat`** compile app **lúc cài đặt** → binary tối ưu cho đúng thiết bị.
+- **`dex2oat`** compile app thành binary tối ưu cho đúng thiết bị — lúc cài đặt **hoặc** chạy nền sau theo profile (mặc định hiện đại: lúc cài chỉ verify, AOT dần khi máy idle — xem [art-jit.md](art-jit.md)).
 - Thực tế hiện đại: kết hợp AOT + JIT + **profile-guided compilation** — hot code được compile dần theo profile sử dụng.
 
 ### Garbage Collection cải tiến

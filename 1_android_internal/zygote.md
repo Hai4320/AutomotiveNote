@@ -14,9 +14,11 @@ tags:
 
 ## Zygote là gì?
 
-- Process **"khuôn mẫu" để sinh mọi app process** (và cả system_server).
-- Tên nghĩa đen: hợp tử — mọi app "sinh ra" từ nó bằng `fork()`.
-- Khởi động lúc boot bởi `init` (từ `init.zygote64.rc`), chạy binary `app_process` → khởi tạo ART VM → chạy `ZygoteInit.java`.
+Zygote là một process **"khuôn mẫu" (template) mà mọi app process trên Android đều fork ra từ đó** — kể cả `system_server`. Tên nó nghĩa đen là "hợp tử": giống một tế bào gốc, mọi process con "sinh ra" từ nó bằng `fork()` và thừa hưởng toàn bộ trạng thái đã chuẩn bị sẵn. Nó khởi động một lần lúc boot bởi `init` (từ `init.zygote64.rc`): chạy binary `app_process` → khởi tạo ART VM → vào `ZygoteInit.java` rồi ngồi chờ lệnh fork.
+
+Vì sao lại cần một process trung gian như vậy thay vì để mỗi app tự khởi động từ đầu? Vì khởi tạo một máy ảo Java và nạp cả framework Android là **rất tốn thời gian và RAM**. Nếu quen với app dev, hãy nghĩ tới việc mỗi lần mở Activity mà phải khởi động lại toàn bộ JVM + nạp lại mọi class `android.*` — mở app nào cũng lag vài giây. Zygote làm phần nặng đó **đúng một lần** rồi cho con cái copy lại (chi tiết ở mục dưới).
+
+Ví dụ dễ hình dung: Zygote như **cục bột đã nhào sẵn men và bột nở**; mỗi khi cần một ổ bánh (app mới) chỉ việc **véo một cục ra nướng**, không phải nhào lại từ đầu — nhanh hơn nhiều so với trộn bột mới mỗi lần.
 
 ## Vì sao cần Zygote? — bài toán cold start
 
@@ -62,7 +64,7 @@ AMS (system_server) ──socket──▶ Zygote
 ## 🚗 Liên hệ Automotive
 
 - **Boot time KPI**: preload list là knob tune — OEM thêm class Car API (`android.car.*`) vào preload để app cockpit mở nhanh; nhưng preload nhiều = Zygote khởi động chậm → trade-off boot time vs app start.
-- Camera lùi phải lên < 2s (quy định an toàn) — thường làm ở tầng native/EVS (Extended View System) **không chờ Zygote/Java stack**.
+- Camera lùi phải lên < 2s (quy định an toàn) — thường làm ở tầng native/EVS (Extended View System — stack camera native riêng của AAOS) **không chờ Zygote/Java stack**.
 - `ro.boot.` + `adb shell ps -A | grep zygote` xem Zygote trên AAOS emulator.
 
 ## Câu hỏi tự kiểm tra

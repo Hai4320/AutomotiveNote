@@ -19,7 +19,7 @@ tags:
 
 - HAL định nghĩa **abstract layer cho chức năng của xe**.
 - Interface xác định các **vehicle properties** mà OEM implement, kèm **property metadata**.
-- Là cầu nối duy nhất giữa Android và phần cứng xe (CAN bus, ECU).
+- Là cầu nối duy nhất giữa Android và phần cứng xe (**CAN bus** — mạng nội bộ nối các bộ điều khiển trong xe; **ECU** — Electronic Control Unit, máy tính con điều khiển từng chức năng như động cơ, cửa, điều hòa).
 
 ## Vị trí trong stack
 
@@ -51,11 +51,11 @@ CAN bus / ECU / phần cứng xe
 
 | Mode | Ý nghĩa |
 |------|---------|
-| `STATIC` | Không đổi (vd VIN) |
+| `STATIC` | Không đổi (vd VIN — số khung xe) |
 | `ON_CHANGE` | Báo khi giá trị đổi (vd cửa mở) |
 | `CONTINUOUS` | Stream liên tục theo sample rate (vd tốc độ) |
 
-- Nhóm property đặc biệt: **SEAT**, **STEERING_WHEEL**, **ADAS**, HVAC...
+- Nhóm property đặc biệt: **SEAT**, **STEERING_WHEEL**, **ADAS** (hỗ trợ lái: giữ làn, cảnh báo va chạm), HVAC (điều hòa)...
 
 ## HIDL vs AIDL VHAL
 

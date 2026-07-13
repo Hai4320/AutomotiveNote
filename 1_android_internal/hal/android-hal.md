@@ -17,6 +17,12 @@ tags:
 
 ## HAL là gì?
 
+HAL (Hardware Abstraction Layer) là **lớp trung gian giữa Android framework và phần cứng**. Nó định nghĩa một bộ *interface chuẩn* mô tả "phần cứng này làm được gì" (đọc tốc độ xe, bật đèn, chụp ảnh...) mà **không nói phần cứng làm điều đó ra sao**. Google định nghĩa sẵn interface; hardware vendor có nhiệm vụ **điền phần implement** phía dưới cho đúng chip/board của mình. Có thể hình dung giống một `interface` trong Java: framework cầm cái interface và gọi method, còn vendor viết class implement thực tế.
+
+Vì sao framework không gọi thẳng driver? Vì mỗi hãng phần cứng có driver, chip, cách giao tiếp khác nhau. Nếu framework gọi trực tiếp thì mỗi lần đổi phần cứng phải sửa lại framework — không thể scale cho hàng nghìn thiết bị của hàng trăm hãng. HAL cắt đứt sự phụ thuộc đó: framework chỉ biết **interface đứng yên**, còn phần implement bên dưới thay đổi tùy vendor. Đây cũng chính là nền tảng của Project Treble — tách phần Google maintain (framework) khỏi phần vendor maintain (HAL) để hai bên update độc lập.
+
+Với người quen làm app: bạn gọi `CameraManager` mà không cần biết cảm biến Sony hay Samsung — HAL là lớp làm được điều tương tự ở tầng system. Framework gọi qua interface, vendor "điền vào chỗ trống" của interface có sẵn, và không bên nào phải biết chi tiết của bên kia.
+
 - Lớp trừu tượng có **interface chuẩn để hardware vendor implement**.
 - Cho phép vendor implement tính năng phần cứng ở tầng thấp **không đụng đến các layer trên** (framework, app).
 - Framework chỉ biết interface — không quan tâm vendor implement thế nào.
@@ -63,9 +69,11 @@ Framework / System Service
 
 | | AIDL | HIDL |
 |--|------|------|
-| Trạng thái | ✅ Khuyến nghị, chuẩn từ Android 13+ | ❌ Deprecated từ Android 13 |
+| Trạng thái | ✅ Dùng cho HAL mới từ Android 11 | ❌ Chuẩn cũ Android 8–10, deprecated từ Android 13 |
 | HAL mới | Bắt buộc viết bằng AIDL | Không dùng cho HAL mới |
 | HAL cũ | — | Vẫn được hỗ trợ chạy |
+
+Timeline thống nhất: HIDL chuẩn 8–10 → AIDL cho HAL từ 11 → HIDL deprecated 13.
 
 ## Vị trí trong source tree
 

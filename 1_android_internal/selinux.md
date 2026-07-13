@@ -14,9 +14,11 @@ tags:
 
 ## SELinux là gì?
 
-- **MAC (Mandatory Access Control)** — khác DAC (rwx truyền thống): quyền do **policy hệ thống** quyết, root cũng không vượt được.
-- Nguyên tắc Android: **deny by default** — không có rule allow = cấm.
-- 2 mode: **permissive** (chỉ log vi phạm) / **enforcing** (chặn thật). Production luôn enforcing.
+SELinux (Security-Enhanced Linux) là một lớp kiểm soát quyền **theo kiểu MAC (Mandatory Access Control)** cài đè lên Linux. Điểm khác biệt cốt lõi so với model quyền `rwx` truyền thống (gọi là DAC — Discretionary Access Control) là: với DAC, chủ sở hữu file tự quyết ai được đọc/ghi, và **root thì vượt qua tất cả**. Với MAC, quyền do một **policy trung tâm của hệ thống** quyết định, và **ngay cả root cũng không vượt được** — nếu policy không cho, thì cấm, chấm hết.
+
+Vì sao Android cần thêm một tầng nữa khi đã có phân quyền Unix? Vì chỉ dựa vào user/permission Unix là quá lỏng cho một thiết bị chứa dữ liệu nhạy cảm: chỉ cần một process bị chiếm quyền và leo lên root là attacker sờ được mọi thứ. SELinux dựng một "hàng rào thứ hai": kể cả khi một service đã bị hack và chạy dưới quyền root, nó **vẫn chỉ đụng được đúng những file/device mà policy cho phép domain của nó đụng** — thiệt hại bị đóng khung lại. Nguyên tắc là **deny by default**: không có rule `allow` nào cho một hành động thì mặc định hành động đó bị cấm.
+
+Ví dụ cụ thể (sẽ gặp lại ở Phase 4): VHAL của bạn muốn mở `/dev/can0` để đọc tín hiệu xe. Dù process chạy quyền cao đến đâu, nếu policy không có dòng `allow` cho domain của VHAL chạm vào node đó thì kernel chặn thẳng và ghi một dòng `avc: denied` — service "chết lặng" dù code hoàn toàn đúng. SELinux có 2 mode: **permissive** (chỉ log vi phạm, không chặn — để test) và **enforcing** (chặn thật). Bản production luôn chạy enforcing.
 
 ```bash
 adb shell getenforce              # Enforcing / Permissive
@@ -36,6 +38,7 @@ u:r:hal_vehicle_default:s0
 ```
 
 - Process → gọi là **domain**; file/resource → **type**.
+- ⚠️ "Domain" ở đây **khác** "domain" trong [binder-ipc.md](binder-ipc.md) (binder/hwbinder/vndbinder — biến thể driver). Cùng từ, 2 khái niệm không liên quan.
 - Policy = tập rule `allow <domain> <type>:<class> {permissions};`
 
 ```

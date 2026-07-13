@@ -16,7 +16,7 @@ tags:
 
 ## Mainline là gì?
 
-- Từ **Android 10**: cho phép **update các thành phần hệ thống ngoài chu kỳ Android release** — không cần OTA full image, không đụng vendor implementation hay app.
+- Từ **Android 10**: cho phép **update các thành phần hệ thống ngoài chu kỳ Android release** — không cần OTA (Over-The-Air update) full image, không đụng vendor implementation hay app.
 - Mục đích chính: vá bảo mật + fix bug **nhanh, đồng loạt mọi device**, không chờ OEM.
 
 ## Nguyên tắc kiến trúc

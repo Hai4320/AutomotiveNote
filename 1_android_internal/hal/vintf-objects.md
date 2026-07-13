@@ -38,7 +38,7 @@ Device Compat Matrix ◀──match── Framework manifest
 - Path chính: `/vendor/etc/vintf/manifest.xml`
 
 ### Framework manifest (Google/system viết)
-- HAL mà **system/product/system_ext cung cấp**, VNDK version, system SDK version.
+- HAL mà **system/product/system_ext cung cấp**, VNDK version (VNDK = bộ native lib ổn định framework cho vendor dùng), system SDK version.
 
 ## Thuộc tính XML quan trọng
 
