@@ -16,8 +16,9 @@ tags:
 
 ## Mainline là gì?
 
-- Từ **Android 10**: cho phép **update các thành phần hệ thống ngoài chu kỳ Android release** — không cần OTA (Over-The-Air update) full image, không đụng vendor implementation hay app.
-- Mục đích chính: vá bảo mật + fix bug **nhanh, đồng loạt mọi device**, không chờ OEM.
+**Mainline (Modular System Components) là cơ chế (từ Android 10) cho phép Google update *từng mảnh* của hệ điều hành riêng lẻ, không cần update cả bản Android.** Một số thành phần lõi (Media codecs, Network Stack, ART, Bluetooth...) được đóng thành **module độc lập**, thay mới được như thay app — không phải flash lại toàn bộ system image.
+
+Vì sao cần? Trước Mainline, muốn vá một lỗ hổng bảo mật trong (ví dụ) bộ giải mã media thì phải đợi OEM build và phát hành OTA nguyên bản Android mới — mất hàng tháng, nhiều máy chẳng bao giờ được vá. Tách thành module giúp Google **đẩy bản vá nhanh, đồng loạt mọi thiết bị** (qua Google Play system updates), bỏ qua khâu chờ OEM. Đổi lại, module phải chơi theo luật chặt: chỉ dùng API ổn định để bản mới chạy được trên hệ thống cũ (chi tiết mục dưới).
 
 ## Nguyên tắc kiến trúc
 

@@ -15,6 +15,12 @@ tags:
 > Ghi chú từ tài liệu chính thức: [source.android.com/docs/core/architecture/aidl/aidl-hals](https://source.android.com/docs/core/architecture/aidl/aidl-hals)
 > Chuỗi HAL trong [roadmap](../../android-automotive-developer-roadmap.md) — đọc sau [android-hal.md](android-hal.md). Nền tảng để viết HAL thật ở **Phase 4**.
 
+## AIDL for HALs là gì?
+
+Note trước ([android-hal.md](android-hal.md)) nói HAL là *interface chuẩn* để vendor implement. **AIDL for HALs là cách hiện đại để *viết* cái interface đó — dùng ngôn ngữ AIDL** (Android Interface Definition Language, chính cái đã sinh ra Proxy/Stub trong [binder-ipc.md](binder-ipc.md)). Bạn tả interface HAL trong file `.aidl` ("phần cứng này có method gì, nhận/trả kiểu gì"), toolchain sinh code hai đầu, vendor điền phần implement.
+
+Vì sao đáng một note riêng? Vì trước Android 11, HAL dùng một ngôn ngữ khác tên **HIDL** — giờ đã deprecated. Chuyển sang AIDL nghĩa là **app, framework và HAL nói chung một thứ tiếng IPC**: dễ học, dễ debug, dễ audit bảo mật, versioning tốt hơn. Note này là nền để Phase 4 viết HAL thật, nên tập trung vào **các ràng buộc bắt buộc** khi dùng AIDL cho HAL (khác với AIDL thường trong app).
+
 ## Vì sao AIDL thay HIDL? (Android 11+)
 
 | Lợi ích | Ý nghĩa |

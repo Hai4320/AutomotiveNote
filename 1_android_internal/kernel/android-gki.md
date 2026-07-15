@@ -16,9 +16,11 @@ tags:
 
 ## GKI là gì?
 
+**GKI (Generic Kernel Image) là một kernel binary *dùng chung* do Google build, giống hệt nhau trên mọi thiết bị cùng kiến trúc + cùng phiên bản** — phần driver riêng của từng chip/board bị tách ra thành **module nạp rời (loadable vendor modules)**. Nói cách khác: thay vì mỗi hãng có một kernel "trộn" cả lõi Android lẫn driver phần cứng của họ, GKI chẻ đôi — **lõi chung** một bên, **driver vendor** một bên, ghép lại lúc chạy.
+
 > "GKI giải quyết kernel fragmentation bằng cách **gom core kernel về một mối**, đẩy toàn bộ SoC & board support ra **loadable vendor modules**."
 
-Bối cảnh trước GKI: **~50% kernel code nằm ngoài ACK/Linux upstream** (code tự chế của OEM/SoC vendor) → vá bảo mật chậm, update LTS khó, fragmentation nặng.
+Vì sao cần? Trước GKI, **~50% code kernel là code tự chế của OEM/SoC vendor nằm ngoài Linux upstream** — hậu quả là **fragmentation** (phân mảnh): mỗi thiết bị một kernel khác nhau, nên vá lỗi bảo mật cực chậm (phải chờ từng vendor merge rồi build lại) và nâng version LTS thì rất khổ. Tách lõi ra dùng chung giúp Google **vá kernel độc lập, đẩy thẳng tới mọi máy** mà không cần chờ vendor đụng tới phần driver của họ.
 
 ## Mục tiêu
 

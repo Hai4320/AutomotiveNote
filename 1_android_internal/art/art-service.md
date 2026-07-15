@@ -16,9 +16,9 @@ tags:
 
 ## ART Service là gì?
 
-- Từ **Android 14**: mọi **on-device AOT compilation (dexopt)** do ART Service đảm nhiệm.
-- **Thay thế** cơ chế dexopt cũ nằm trong Package Manager (`BackgroundDexOptService`).
-- Là một phần của **ART Mainline module** → update qua Play, có API + system property để customize.
+**ART Service là thành phần (từ Android 14) đứng ra quản lý toàn bộ việc compile app trên máy — tức mọi dexopt (on-device AOT compilation).** Nó là "người điều phối": quyết định app nào được compile, lúc nào, bằng filter gì; còn công cụ compile thực tế vẫn là `dex2oat`. Trước đây việc điều phối này nằm rải rác trong Package Manager (`BackgroundDexOptService`); Android 14 gom hết về ART Service cho gọn và dễ tùy biến.
+
+Vì sao tách riêng ra? Vì nó là **một phần của ART Mainline module** (xem [../mainline/android-mainline.md](../mainline/android-mainline.md)) — Google update được qua Play mà không cần OTA cả hệ điều hành, đồng thời mở ra **API + system property** để OEM móc vào chỉnh hành vi compile. Đây chính là chỗ giải bài toán "xe không có lúc idle + sạc để chạy dexopt" ở mục 🚗 cuối note.
 
 ## Compilation reasons
 

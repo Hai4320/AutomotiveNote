@@ -17,8 +17,9 @@ tags:
 
 ## VINTF là gì?
 
-- Hệ thống **đảm bảo tương thích device (vendor) ↔ framework (system)** — trái tim của Project Treble.
-- Tổng hợp data từ **manifest** (bên này *có* gì) và **compatibility matrix** (bên kia *cần* gì), rồi match chéo.
+**VINTF (Vendor Interface Object) là cơ chế kiểm tra xem phía vendor và phía framework có *khớp* nhau không** — trái tim của Project Treble. Treble cho phép update Android (framework) và phần cứng (vendor) độc lập; nhưng nếu framework mới *cần* một HAL mà vendor cũ *không có*, máy sẽ hỏng. VINTF là "hợp đồng" ngăn chuyện đó: nó bắt hai bên khai rõ mình có gì / cần gì, rồi so chéo trước khi cho chạy.
+
+Cách làm dựa trên hai loại tài liệu, ghép chéo nhau: **manifest** khai "bên này *có* gì" (vendor có HAL nào, framework có gì), còn **compatibility matrix** khai "bên kia *cần* gì". Hệ thống match: cái framework *cần* phải nằm trong cái vendor *có*, và ngược lại. Hình dung như đặt hàng: manifest là "kho hàng thực có", matrix là "đơn hàng yêu cầu" — thiếu món trong đơn là giao dịch fail (chặn boot/OTA).
 
 ```
 Device side                     Framework side

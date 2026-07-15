@@ -23,10 +23,6 @@ Vì sao framework không gọi thẳng driver? Vì mỗi hãng phần cứng có
 
 Với người quen làm app: bạn gọi `CameraManager` mà không cần biết cảm biến Sony hay Samsung — HAL là lớp làm được điều tương tự ở tầng system. Framework gọi qua interface, vendor "điền vào chỗ trống" của interface có sẵn, và không bên nào phải biết chi tiết của bên kia.
 
-- Lớp trừu tượng có **interface chuẩn để hardware vendor implement**.
-- Cho phép vendor implement tính năng phần cứng ở tầng thấp **không đụng đến các layer trên** (framework, app).
-- Framework chỉ biết interface — không quan tâm vendor implement thế nào.
-
 ```
 Framework / System Service
         │  gọi qua interface (AIDL/HIDL)

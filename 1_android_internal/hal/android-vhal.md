@@ -17,9 +17,9 @@ tags:
 
 ## VHAL là gì?
 
-- HAL định nghĩa **abstract layer cho chức năng của xe**.
-- Interface xác định các **vehicle properties** mà OEM implement, kèm **property metadata**.
-- Là cầu nối duy nhất giữa Android và phần cứng xe (**CAN bus** — mạng nội bộ nối các bộ điều khiển trong xe; **ECU** — Electronic Control Unit, máy tính con điều khiển từng chức năng như động cơ, cửa, điều hòa).
+**VHAL (Vehicle HAL) là HAL đặc biệt dành cho *chức năng của chiếc xe*** — cái cầu duy nhất nối Android với phần cứng xe. Mọi HAL khác trừu tượng hóa một thiết bị (camera, âm thanh...); VHAL trừu tượng hóa *cả chiếc xe*: tốc độ, cửa, ghế, điều hòa, đèn, trạng thái lái... Nó biến mớ tín hiệu hỗn tạp từ **CAN bus** (mạng nội bộ nối các bộ điều khiển trong xe) và **ECU** (Electronic Control Unit — máy tính con điều khiển từng chức năng như động cơ, cửa, điều hòa) thành một danh sách **vehicle property** chuẩn hóa mà Android hiểu được.
+
+Vì sao cần chuẩn hóa như vậy? Vì mỗi hãng xe đi dây, đặt tín hiệu CAN một kiểu khác nhau — nếu framework phải biết chi tiết đó thì không thể chạy chung trên xe của nhiều hãng. VHAL định nghĩa một *interface* (`IVehicle.aidl`): mỗi tín hiệu xe → một **property** có ID, kiểu dữ liệu, vùng áp dụng (area) và cách thay đổi (change mode) thống nhất. OEM/vendor điền phần implement phía dưới (nói chuyện với CAN/ECU thật), còn Android chỉ làm việc với property. Toàn bộ dữ liệu xe — tốc độ, HVAC, ADAS — đều chảy qua đây, nên VHAL là component quan trọng nhất với một platform engineer AAOS.
 
 ## Vị trí trong stack
 

@@ -16,8 +16,9 @@ tags:
 
 ## ACK là gì?
 
-- Kernel dựa trên **kernel.org (upstream)**, Google duy trì + thêm patch cộng đồng Android cần.
-- Patch gồm: chức năng chưa kịp upstream, feature đang phát triển, vendor tooling.
+**ACK (Android Common Kernel) là bản Linux kernel do Google duy trì riêng cho Android**: lấy kernel gốc từ **kernel.org (upstream)** rồi chồng thêm những patch mà Android cần nhưng chưa có (hoặc chưa kịp merge) ở bản gốc. Nói ngắn: ACK = Linux upstream + "phần vá riêng cho Android".
+
+Vì sao không dùng thẳng Linux của kernel.org? Vì Android cần một số thứ mà upstream chưa có sẵn hoặc merge rất chậm: chức năng đang phát triển, feature vendor cần, tooling riêng. Google gom các patch đó vào một nơi (ACK) để mọi thiết bị Android khởi đầu từ cùng một nền kernel thống nhất, thay vì mỗi hãng tự vá lung tung. Note này đi sâu vào **các nhánh (branch) của ACK** và vòng đời của chúng — thứ quyết định một dự án xe chọn kernel version nào để gắn bó nhiều năm.
 
 ## Cấu trúc nhánh
 

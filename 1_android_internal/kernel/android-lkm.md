@@ -16,8 +16,9 @@ tags:
 
 ## LKM là gì?
 
-- Kernel module (`.ko`) **load động lúc runtime**, không compile cứng vào kernel.
-- Từ **Android 8.0**: mọi SoC kernel **bắt buộc hỗ trợ LKM** — nền tảng cho Treble & GKI.
+**LKM (Loadable Kernel Module) là một mẩu code kernel đóng gói thành file `.ko`, nạp vào kernel *lúc runtime* thay vì compile cứng vào trong kernel.** Điển hình là driver phần cứng: driver màn hình, cảm biến, CAN... mỗi cái là một module `.ko` riêng, kernel cần thì `insmod`/`modprobe` nạp vào, không cần thì thôi. Giống như plugin của một ứng dụng — lõi giữ nguyên, tính năng cắm thêm rời.
+
+Vì sao Android bắt buộc cơ chế này (từ **Android 8.0** mọi SoC kernel phải hỗ trợ LKM)? Vì nó là **nền tảng cho Treble và GKI**: muốn có một kernel lõi (GKI) dùng chung cho mọi máy thì phần driver riêng của từng chip *bắt buộc* phải tách ra nạp rời — và LKM chính là cách tách đó. Không có LKM thì không thể "một kernel chạy mọi thiết bị". Note này đi vào chi tiết: module nằm partition nào, nạp ra sao, và cách kiểm tra tương thích ABI để module không nạp nhầm kernel.
 
 ### Kernel config bắt buộc
 

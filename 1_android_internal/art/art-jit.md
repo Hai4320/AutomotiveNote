@@ -14,10 +14,13 @@ tags:
 > Ghi chú từ tài liệu chính thức: [source.android.com/docs/core/runtime/jit-compiler](https://source.android.com/docs/core/runtime/jit-compiler?hl=vi)
 > Thuộc **Phase 1 — Android Internals** trong [roadmap](../../android-automotive-developer-roadmap.md). Đọc sau [android-art.md](android-art.md) và [art-configure.md](art-configure.md).
 
-## Tổng quan
+## JIT là gì? Khác AOT chỗ nào?
 
-- JIT **bổ sung cho AOT**, không thay thế — kết hợp với code profiling để app **nhanh dần lên khi dùng**.
-- Chỉ bật cho app **không** compile bằng filter `speed` (đã AOT hết thì JIT không cần).
+**JIT (Just-In-Time) compiler biến bytecode thành machine code *ngay trong lúc app đang chạy*** — cụ thể là chỉ compile những đoạn code được gọi nhiều ("hot"), còn phần ít dùng cứ để interpreter chạy. Đối lập với **AOT (Ahead-Of-Time)** compile *trước* khi chạy (lúc cài/lúc build): AOT như dịch sẵn cả cuốn sách trước khi đọc, JIT như dịch tại chỗ đúng những câu bạn thực sự đọc tới.
+
+Điểm mấu chốt cho người mới: **JIT không thay thế AOT, nó bổ sung**. Ý tưởng là app **nhanh dần lên khi dùng** — lần đầu chạy thì interpreter + JIT lo, ART âm thầm ghi lại "method nào nóng" vào profile, rồi sau đó AOT lại đúng những method đó (profile-guided). Nhờ vậy không cần compile sẵn *toàn bộ* app (tốn chỗ) mà vẫn nhanh ở chỗ cần nhanh.
+
+Vì thế JIT **chỉ bật cho app không compile bằng filter `speed`** — nếu đã AOT hết mọi method rồi thì chẳng còn gì cho JIT làm.
 
 ## Kiến trúc — 3 thành phần
 

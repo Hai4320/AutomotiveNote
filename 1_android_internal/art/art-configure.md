@@ -15,6 +15,14 @@ tags:
 > Ghi chú từ tài liệu chính thức: [source.android.com/docs/core/runtime/configure](https://source.android.com/docs/core/runtime/configure?hl=vi)
 > Thuộc **Phase 1 — Android Internals** trong [roadmap](../../android-automotive-developer-roadmap.md). Đọc sau [android-art.md](android-art.md).
 
+## "Cấu hình ART" nghĩa là gì?
+
+ART không compile mọi app theo một kiểu cứng nhắc — nó có **nhiều núm vặn (knob)** để quyết định: app này compile sâu tới đâu, compile lúc nào, dùng bao nhiêu CPU để compile. "Cấu hình ART" chính là chỉnh những núm đó qua build variable (lúc build image) và system property (lúc chạy).
+
+Vì sao phải chỉnh? Vì luôn có **đánh đổi tay ba**: compile càng nhiều thì app chạy càng nhanh, nhưng **tốn dung lượng** (file `.oat` to) và **tốn thời gian compile** (cài lâu, hoặc ngốn CPU lúc chạy nền). Không cấu hình nào tối ưu cho mọi app: launcher cần mở tức thì nên compile sẵn hết, còn app hiếm dùng thì để nhẹ cho đỡ phí chỗ. OEm (đặc biệt xe hơi — xem mục 🚗 cuối) tinh chỉnh mấy núm này để cân boot time, dung lượng và độ mượt.
+
+Cụ thể có 2 nhóm núm: **compilation filter** (compile *sâu* tới mức nào — mục ngay dưới) và **dexpreopt/threading** (compile *khi nào* và bằng *bao nhiêu* CPU).
+
 ## Compilation filters (dex2oat)
 
 4 filter chính — quyết định DEX được xử lý sâu đến đâu:
