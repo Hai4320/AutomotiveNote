@@ -38,10 +38,12 @@ Nhiều thứ trong Phase 1 là hệ quả trực tiếp của Treble:
 | `product` | App/config theo dòng sản phẩm | OEM |
 | `boot` | Kernel (GKI) + ramdisk | Google |
 | `vendor_boot`, `vendor_dlkm` | Vendor kernel modules | SoC vendor |
+| `super` | Partition co giãn gộp `system`+`vendor`+`product` (**dynamic partitions**, Android 10+) | — |
 | `userdata` | Data người dùng, app cài thêm | — |
 
 - Ranh giới Treble là ranh giới **vật lý**: update Android = thay `system`, không đụng `vendor` — vì thế mới có quy tắc "HAL phải nằm ở vendor partition".
 - **Image** = file chứa nội dung 1 partition (`system.img`, `boot.img`...), sinh ra khi build AOSP, flash vào máy bằng fastboot. "Build image" trong các note = build ra bộ file này.
+- **Dynamic partitions / `super`**: từ Android 10, system/vendor/product không còn phân vùng cứng cố định mà nằm trong 1 partition `super` co giãn → đổi kích thước qua OTA mà không cần re-partition.
 
 ## Vai trò các bên
 
@@ -69,6 +71,9 @@ Nhiều thứ trong Phase 1 là hệ quả trực tiếp của Treble:
 | **Ramdisk** | Filesystem nhỏ đóng trong boot image, nạp thẳng vào RAM để chạy giai đoạn boot sớm (chứa `/init` first stage) |
 | **OTA** | Over-The-Air — update hệ điều hành gửi qua mạng xuống thiết bị |
 | **Daemon** | Process chạy nền, không có UI (`logd`, `ueventd`...) |
+| **Bionic** | libc của Android (thay `glibc` của Linux desktop) — nhỏ, license BSD |
+| **syscall** | System call — cửa userspace gọi vào kernel (`open`/`read`/`ioctl`...); cách duy nhất userspace đụng phần cứng, luôn qua driver |
+| **DAC / MAC** | Discretionary (quyền `rwx` Unix, owner tự quyết) / Mandatory (SELinux, policy trung tâm — root cũng không vượt). Hai hàng rào permission chồng nhau |
 
 ## Kiểm định & tương thích
 
